@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Mesto</title>
+  </head>
+  <body class="root">
+    <div class="page text-smoothing">
+      <header class="header">
+        <img src="./images/logo.svg" alt="Место" class="header__logo" />
+      </header>
+      <main>
+        <section class="profile">
+          <div class="profile__info-container">
+            <img
+              src="./images/Avatar.png"
+              alt="Аватарка"
+              class="profile__avatar"
+            />
+            <div class="profile__info">
+              <div class="profile__heading-container">
+                <h1 class="profile__heading">Жак-Ив Кусто</h1>
+                <button class="button button_action_edit"></button>
+              </div>
+              <p class="profile__subheading">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="button button_action_add"></button>
+        </section>
+        <section class="elements">
+          <ul class="elements__list list">
+            <li class="element">
+              <img src="./images/olhon.jpg" alt="" class="element__image" />
+              <div class="element__footer">
+                <p class="element__title">Ольхон</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img src="./images/altai.jpg" alt="" class="element__image" />
+              <div class="element__footer">
+                <p class="element__title">Алтай</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img src="./images/kamchatka.jpg" alt="" class="element__image" />
+              <div class="element__footer">
+                <p class="element__title">Камчатка</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img src="./images/kinerma.jpg" alt="" class="element__image" />
+              <div class="element__footer">
+                <p class="element__title">Кинерма</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img src="./images/dombai.jpg" alt="" class="element__image" />
+              <div class="element__footer">
+                <p class="element__title">Домбай</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+            <li class="element">
+              <img
+                src="./images/kursh-kosa.jpg"
+                alt=""
+                class="element__image"
+              />
+              <div class="element__footer">
+                <p class="element__title">Куршская коса</p>
+                <button class="button button_action_like"></button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+      <footer></footer>
+    </div>
+  </body>
+</html>
