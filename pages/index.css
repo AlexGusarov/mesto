@@ -22,3 +22,5 @@
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__footer/element__footer.css);
 @import url(../blocks/button/_action/button_action_like.css);
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
