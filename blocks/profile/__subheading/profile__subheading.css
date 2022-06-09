@@ -7,3 +7,14 @@
   line-height: 1.22;
   margin: 0;
 }
+
+@media screen and (max-width: 705px) {
+  .profile__subheading {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.21;
+    margin-bottom: 36px;
+    padding-right: 25px;
+    box-sizing: border-box;
+  }
+}

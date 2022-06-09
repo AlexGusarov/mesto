@@ -1,5 +1,15 @@
 .button_action_add {
   width: 150px;
   height: 50px;
-  background-image: url(../../../images/Add\ Button.svg);
+  background-image: url(../../../images/add-btn.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 400px) {
+  .button_action_add {
+    width: 100%;
+  }
 }
