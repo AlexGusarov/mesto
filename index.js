@@ -32,3 +32,4 @@ function submitHandler (event) {
   jobProfile.textContent = jobInput.value;
   closePopup();  
 } 
+

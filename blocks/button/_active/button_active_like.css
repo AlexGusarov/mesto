@@ -1,0 +1,4 @@
+/* модификатор активного состояния кнопки button_action_like */
+.button_active_like {
+  background-image: url(../../../images/heart-black.svg);
+}
