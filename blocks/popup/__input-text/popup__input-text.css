@@ -9,6 +9,7 @@
   font-size: 14px;
   line-height: 1.21;
   color: #000000;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -19,5 +20,6 @@
 }
 
 .popup__input-text:focus {
+  -webkit-box-shadow: 0 0 3px 1px #708090;
   box-shadow: 0 0 3px 1px #708090;
 }
