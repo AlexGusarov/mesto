@@ -1,5 +1,6 @@
-.popap__input-text {
+.popup__input-text {
   width: 100%;
+  min-height: 27px;
   border: 0;
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -8,8 +9,15 @@
   font-size: 14px;
   line-height: 1.21;
   color: #000000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.popap__input-text:nth-child(2n) {
+.popup__input-text:nth-child(2n) {
   margin-top: 30px;
+}
+
+.popup__input-text:focus {
+  box-shadow: 0 0 3px 1px #708090;
 }
