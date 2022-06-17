@@ -20,5 +20,12 @@
     font-size: 14px;
     line-height: 1.21;
     margin-bottom: 36px;
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .profile__subheading {
+    max-width: 250px;
   }
 }

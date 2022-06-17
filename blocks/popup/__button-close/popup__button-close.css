@@ -6,6 +6,8 @@
   top: -32px;
   right: -40px;
   background-size: contain;
+  background-color: transparent;
+  border: none;
 }
 
 .popup__button-close:hover {
@@ -16,7 +18,7 @@
   .popup__button-close {
     width: 20px;
     height: 20px;
-    top: -26px;
+    top: -36px;
     right: 0;
   }
 }
