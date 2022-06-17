@@ -1,12 +1,10 @@
 .button {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   padding: 0;
-  border: none;
+  cursor: pointer;
   -webkit-transition: opacity ease 0.2s;
   -o-transition: opacity ease 0.2s;
   transition: opacity ease 0.2s;
-}
-
-.button:hover {
-  opacity: 0.6;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }

@@ -11,16 +11,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  grid-area: 'subtitle';
 }
 
-@media screen and (max-width: 785px) {
+@media screen and (max-width: 940px) {
   .profile__subheading {
     text-align: center;
     font-size: 14px;
     line-height: 1.21;
     margin-bottom: 36px;
-    padding-right: 25px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
   }
 }

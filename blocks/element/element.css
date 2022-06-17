@@ -8,4 +8,14 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  justify-self: center;
+}
+
+@media screen and (min-width: 620px) {
+  .element:nth-child(2n + 1) {
+    justify-self: flex-end;
+  }
+  .element:nth-child(2n) {
+    justify-self: flex-start;
+  }
 }

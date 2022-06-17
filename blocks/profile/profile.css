@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-@media screen and (max-width: 785px) {
+@media screen and (max-width: 940px) {
   .profile {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
@@ -23,5 +23,6 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+    padding: 42px 19px 0;
   }
 }

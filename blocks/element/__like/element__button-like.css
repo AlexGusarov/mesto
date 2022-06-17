@@ -1,8 +1,11 @@
-.button_action_like {
+.element__button-like {
   width: 22px;
   height: 19px;
   background-image: url(../../../images/heart.svg);
-  background-color: #fff;
+  border: none;
 }
 
+.element__button-like:hover {
+  opacity: 0.5;
+}
 /* для активного состояния - см. button_active_like */
