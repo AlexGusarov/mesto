@@ -28,11 +28,28 @@ const initialCards = [
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card-template').content;
 
-function createCard (name, link) {
+
+function handleTrashBtn (evt) {
+  evt.target.closest('.element').remove();
+}
+
+function handleLikeBtn (evt) {
+    evt.target.classList.toggle('element__button-like_active');   
+}
+
+function createCard (name, link) {  
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
 
   cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__image').src = link;
+  cardElement.querySelector('.element__image').src = link;  
+
+  const trashButton = cardElement.querySelector('.element__button-trash');
+  trashButton.addEventListener('click', handleTrashBtn); 
+
+  const likeButton = cardElement.querySelector('.element__button-like');  
+  likeButton.addEventListener('click', handleLikeBtn);
+  
+
   return cardElement;  
 }  
 
@@ -107,6 +124,7 @@ function handleAddSubmit (event) {
 }
 
 addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
+
 
 
 
