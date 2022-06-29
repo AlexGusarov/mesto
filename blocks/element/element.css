@@ -9,6 +9,7 @@
   -ms-flex-direction: column;
   flex-direction: column;
   justify-self: center;
+  position: relative;
 }
 
 @media screen and (min-width: 620px) {
