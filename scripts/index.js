@@ -28,19 +28,33 @@ const initialCards = [
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card-template').content;
 const imagePopup = document.querySelector('.popup_type_image');
+const editPopup = document.querySelector('.popup_type_edit-profile');
+const addPopup = document.querySelector('.popup_type_add-button');
+const popupForm = document.querySelector('.popup__form');
+let nameInput = popupForm.querySelector('.popup__input-text_type_name');
+let jobInput = popupForm.querySelector('.popup__input-text_type_job');
+let nameProfile = document.querySelector('.profile__heading');
+let jobProfile = document.querySelector('.profile__subheading');
+
+const openPopup = (typeOfPopup) => {
+  typeOfPopup.classList.add('popup_opened');
+};
+
+const closePopup = () => {
+  const openedPopup = document.querySelector('.popup_opened').closest('.popup');
+  openedPopup.classList.remove('popup_opened');
+};
 
 
-function handleTrashBtn (evt) {
+const handleTrashBtn = (evt) => {
   evt.target.closest('.element').remove();
-}
+};
 
-function handleLikeBtn (evt) {
-    evt.target.classList.toggle('element__button-like_active');   
-}
+const handleLikeBtn = (evt) => {
+    evt.target.classList.toggle('element__button-like_active');
+};
 
-
-function openFullImg (evt) {
-
+const openFullImg = (evt) => {
   openPopup(imagePopup);
 
   let link = evt.target.getAttribute('src');
@@ -50,9 +64,10 @@ function openFullImg (evt) {
   let title = element.querySelector('.element__title').textContent;
 
   imagePopup.querySelector('.popup__title-image').textContent = title;  
-}
+};
 
-function createCard (name, link) {  
+
+const createCard = (name, link) => {  
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
   const imageCard = cardElement.querySelector('.element__image');
 
@@ -66,13 +81,12 @@ function createCard (name, link) {
 
   const likeButton = cardElement.querySelector('.element__button-like');  
   likeButton.addEventListener('click', handleLikeBtn);
-  
-  
 
   return cardElement;  
 }  
 
-function renderInitialCards () {
+
+const renderInitialCards = () => {
   initialCards.forEach(function (item) {
       const card = createCard(item.name, item.link);
       cardsContainer.append(card);
@@ -81,24 +95,6 @@ function renderInitialCards () {
 
 renderInitialCards ();
 
-const editPopup = document.querySelector('.popup_type_edit-profile');
-const addPopup = document.querySelector('.popup_type_add-button');
-
-function openPopup (typeOfPopup) {
-  typeOfPopup.classList.add('popup_opened');
-}
-
-function closePopup () {
-  const openedPopup = document.querySelector('.popup_opened').closest('.popup');
-  openedPopup.classList.remove('popup_opened');
-}
-
-
-const popupForm = document.querySelector('.popup__form');
-let nameInput = popupForm.querySelector('.popup__input-text_type_name');
-let jobInput = popupForm.querySelector('.popup__input-text_type_job');
-let nameProfile = document.querySelector('.profile__heading');
-let jobProfile = document.querySelector('.profile__subheading'); 
 
 function handleEditBtn () {
   openPopup(editPopup);
@@ -115,7 +111,7 @@ closeButton.forEach( function(el) {
 });
 
 
-function handleEditSubmit (event) {
+const handleEditSubmit = (event) => {
   event.preventDefault();  
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
@@ -125,7 +121,7 @@ function handleEditSubmit (event) {
 editPopup.querySelector('.popup__form').addEventListener('submit', handleEditSubmit);
 
 
-function handleAddBtn () {
+const handleAddBtn = () => {
   openPopup(addPopup);
 }
 
@@ -135,7 +131,7 @@ addButton.addEventListener('click', handleAddBtn);
 let titleInput = addPopup.querySelector('.popup__input-text_type_title');
 let linkInput = addPopup.querySelector('.popup__input-text_type_link');
 
-function handleAddSubmit (event) {
+const handleAddSubmit = (event) => {
   event.preventDefault();
   const newCard = createCard (titleInput.value, linkInput.value);
   cardsContainer.prepend(newCard);
@@ -143,7 +139,7 @@ function handleAddSubmit (event) {
   closePopup();
 }
 
-function clearAddInputs() {
+const clearAddInputs = () => {
   titleInput.value = '';
   linkInput.value = '';
 }
