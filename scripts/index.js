@@ -1,32 +1,33 @@
 const initialCards = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: 'Куршская коса',
+    link: 'https://images.unsplash.com/photo-1552603977-d552dc4022d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1633&q=80'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Валдай',
+    link: 'https://images.unsplash.com/photo-1617259664773-dc3a1721cebd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmFsZGF5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Карелия',
+    link: 'https://images.unsplash.com/photo-1573156667788-3b0a869a97b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGthcmVsaWF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Урал',
+    link: 'https://images.unsplash.com/photo-1542091607-0545b109d5e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80'
   },
   {
     name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    link: 'https://images.unsplash.com/photo-1548146077-23ad537c6ef9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
+  },
+  {
+    name: 'Чебоксары',
+    link: 'https://images.unsplash.com/photo-1554319554-bb07f7394b97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80'
   }
 ];
 
 const cardsContainer = document.querySelector('.elements__list');
 const cardTemplate = document.querySelector('#card-template').content;
+const imagePopup = document.querySelector('.popup_type_image');
 
 
 function handleTrashBtn (evt) {
@@ -37,17 +38,35 @@ function handleLikeBtn (evt) {
     evt.target.classList.toggle('element__button-like_active');   
 }
 
+
+function openFullImg (evt) {
+
+  openPopup(imagePopup);
+
+  let link = evt.target.getAttribute('src');
+  imagePopup.querySelector('.popup__image').setAttribute('src', link);
+
+  let element = evt.target.closest('.element');
+  let title = element.querySelector('.element__title').textContent;
+
+  imagePopup.querySelector('.popup__title-image').textContent = title;  
+}
+
 function createCard (name, link) {  
   const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
+  const imageCard = cardElement.querySelector('.element__image');
 
   cardElement.querySelector('.element__title').textContent = name;
-  cardElement.querySelector('.element__image').src = link;  
+  imageCard.src = link;
+
+  imageCard.addEventListener('click', openFullImg);  
 
   const trashButton = cardElement.querySelector('.element__button-trash');
   trashButton.addEventListener('click', handleTrashBtn); 
 
   const likeButton = cardElement.querySelector('.element__button-like');  
   likeButton.addEventListener('click', handleLikeBtn);
+  
   
 
   return cardElement;  
@@ -130,8 +149,6 @@ function clearAddInputs() {
 }
 
 addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
-
-
 
 
 
