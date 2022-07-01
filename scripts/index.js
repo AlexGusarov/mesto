@@ -40,6 +40,8 @@ const editButton = document.querySelector('.profile__button-edit');
 const closeButtons = document.querySelectorAll('.popup__button-close');
 const titleInput = addPopup.querySelector('.popup__input-text_type_title');
 const linkInput = addPopup.querySelector('.popup__input-text_type_link');
+const imageOfImagePopup = imagePopup.querySelector('.popup__image');
+const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 
 
 const openPopup = (typeOfPopup) => {
@@ -66,13 +68,13 @@ const handleLikeBtn = (evt) => {
 const openFullImg = (evt) => {
   openPopup(imagePopup);
 
-  const link = evt.target.getAttribute('src');
-  imagePopup.querySelector('.popup__image').setAttribute('src', link);
-
   const element = evt.target.closest('.element');
   const title = element.querySelector('.element__title').textContent;
+  const link = evt.target.getAttribute('src');
 
-  imagePopup.querySelector('.popup__title-image').textContent = title;  
+  imageOfImagePopup.setAttribute('src', link);
+  imageOfImagePopup.setAttribute('alt', title);
+  titleOfImagePopup.textContent = title;  
 };
 
 
@@ -82,6 +84,7 @@ const createCard = (name, link) => {
 
   cardElement.querySelector('.element__title').textContent = name;
   imageCard.src = link;
+  imageCard.alt = name;
 
   imageCard.addEventListener('click', openFullImg);  
 
