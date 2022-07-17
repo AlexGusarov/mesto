@@ -42,6 +42,7 @@ const titleInput = addPopup.querySelector('.popup__input-text_type_title');
 const linkInput = addPopup.querySelector('.popup__input-text_type_link');
 const imageOfImagePopup = imagePopup.querySelector('.popup__image');
 const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
+const popups = document.querySelectorAll('.popup');
 
 
 const openPopup = (typeOfPopup) => {
@@ -53,20 +54,38 @@ const closePopup = () => {
   openedPopup.classList.remove('popup_opened');
 };
 
+
+//закрыть окно кликом на крестик
 closeButtons.forEach( (el) => {
   el.addEventListener('click', closePopup)
 });
 
+//закрыть окно кликом на оверлей
+popups.forEach( (el) => {
+  el.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup();
+    }
+  })  
+});
 
+//закрыть окно клавишей Esc
+document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+    closePopup();
+  }
+} )
 
 
 const handleTrashBtn = (evt) => {
   evt.target.closest('.element').remove();
 };
 
+
 const handleLikeBtn = (evt) => {
     evt.target.classList.toggle('element__button-like_active');
 };
+
 
 const openFullImg = (evt) => {
   openPopup(imagePopup);
@@ -108,6 +127,7 @@ const renderInitialCards = () => {
     });    
 }
 
+
 renderInitialCards ();
 
 
@@ -117,7 +137,9 @@ function handleEditBtn () {
   jobInput.value = jobProfile.textContent;
 }
 
+
 editButton.addEventListener('click', handleEditBtn);
+
 
 const handleEditSubmit = (event) => {
   event.preventDefault();  
@@ -126,13 +148,17 @@ const handleEditSubmit = (event) => {
   closePopup();
 }
 
+
 editPopup.querySelector('.popup__form').addEventListener('submit', handleEditSubmit);
+
 
 const handleAddBtn = () => {
   openPopup(addPopup);
 }
 
+
 addButton.addEventListener('click', handleAddBtn);
+
 
 const handleAddSubmit = (event) => {
   event.preventDefault();
