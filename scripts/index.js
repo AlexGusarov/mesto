@@ -53,9 +53,12 @@ const closePopup = () => {
   openedPopup.classList.remove('popup_opened');
 };
 
-closeButtons.forEach( function(el) {
+closeButtons.forEach( (el) => {
   el.addEventListener('click', closePopup)
 });
+
+
+
 
 const handleTrashBtn = (evt) => {
   evt.target.closest('.element').remove();
