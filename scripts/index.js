@@ -45,36 +45,41 @@ const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 const popups = document.querySelectorAll('.popup');
 
 
-const openPopup = (typeOfPopup) => {
-  typeOfPopup.classList.add('popup_opened');
-};
-
 const closePopup = () => {
   const openedPopup = document.querySelector('.popup_opened').closest('.popup');
   openedPopup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', closeByEsc); 
 };
 
 
-//закрыть окно кликом на крестик
-closeButtons.forEach( (el) => {
-  el.addEventListener('click', closePopup)
-});
+function closeByEsc (evt) {
+  if (evt.key === 'Escape') {
+    closePopup();
+}
+}
 
-//закрыть окно кликом на оверлей
-popups.forEach( (el) => {
-  el.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup();
-    }
-  })  
-});
-
-//закрыть окно клавишей Esc
-document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
+function closeByOverlay (evt) {
+  if (evt.target === evt.currentTarget) {
     closePopup();
   }
-} )
+}
+
+//установить слушатели для функции закрытия
+function setCloseListeners (popupElement) {
+  const closeButton = popupElement.querySelector('.popup__button-close');
+  closeButton.addEventListener('click', closePopup);
+
+  popupElement.addEventListener('click', closeByOverlay);
+
+  document.addEventListener('keydown', closeByEsc);
+ }
+
+
+const openPopup = (typeOfPopup) => {
+  setCloseListeners(typeOfPopup);
+  typeOfPopup.classList.add('popup_opened');  
+};
 
 
 const handleTrashBtn = (evt) => {

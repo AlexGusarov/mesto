@@ -1,7 +1,4 @@
 
-const formAddCard = document.querySelector('.popup__form_card');
-const formEditUser = document.querySelector('.popup__form_user');
-const inputAdd = formAddCard.querySelector('.popup__input-text');
 
 
 //показать ошибку
