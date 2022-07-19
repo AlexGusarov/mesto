@@ -45,12 +45,29 @@ const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 const popups = document.querySelectorAll('.popup');
 
 
-const closePopup = () => {
-  const openedPopup = document.querySelector('.popup_opened').closest('.popup');
-  openedPopup.classList.remove('popup_opened');
+function closePopup () {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (openedPopup) {
+    openedPopup.classList.remove('popup_opened');
 
-  document.removeEventListener('keydown', closeByEsc); 
+    document.removeEventListener('keydown', closeByEsc); 
+  }  
 };
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    //защита от двойного клика
+     if(!evt.detail || evt.detail == 1) {
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup()
+    }
+    if (evt.target.classList.contains('popup__button-close')) {
+      closePopup()
+    }
+     }
+     
+  })
+})
 
 
 function closeByEsc (evt) {
@@ -59,26 +76,10 @@ function closeByEsc (evt) {
 }
 }
 
-function closeByOverlay (evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup();
-  }
-}
-
-//установить слушатели для функции закрытия
-function setCloseListeners (popupElement) {
-  const closeButton = popupElement.querySelector('.popup__button-close');
-  closeButton.addEventListener('click', closePopup);
-
-  popupElement.addEventListener('click', closeByOverlay);
-
-  document.addEventListener('keydown', closeByEsc);
- }
 
 
 const openPopup = (typeOfPopup) => {
-  setCloseListeners(typeOfPopup);
-  typeOfPopup.classList.add('popup_opened');  
+   typeOfPopup.classList.add('popup_opened');  
 };
 
 
