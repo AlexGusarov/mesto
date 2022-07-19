@@ -58,14 +58,10 @@ popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     //защита от двойного клика
      if(!evt.detail || evt.detail == 1) {
-      if (evt.target.classList.contains('popup_opened')) {
+      if (evt.target.matches('.popup_opened') || evt.target.matches('.popup__button-close')) {
         closePopup()
     }
-    if (evt.target.classList.contains('popup__button-close')) {
-      closePopup()
-    }
-     }
-     
+  }     
   })
 })
 
@@ -79,7 +75,9 @@ function closeByEsc (evt) {
 
 
 const openPopup = (typeOfPopup) => {
-   typeOfPopup.classList.add('popup_opened');  
+   typeOfPopup.classList.add('popup_opened');
+   
+   document.addEventListener('keydown', closeByEsc);
 };
 
 
