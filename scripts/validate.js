@@ -19,11 +19,11 @@ function hideInputError(formElem, inputElem, settings) {
 
 
 //проверить валидность одного инпута и показать ошибку
-const validateInput = (formElem, inputElem)=> {
+const validateInput = (formElem, inputElem, settings)=> {
   if (!inputElem.validity.valid) {
-    showInputError(formElem, inputElem, inputElem.validationMessage);
+    showInputError(formElem, inputElem, inputElem.validationMessage, settings);
   } else {
-    hideInputError(formElem, inputElem);
+    hideInputError(formElem, inputElem, settings);
   }
 };
 
@@ -58,7 +58,7 @@ function setHandlers(formElem, settings) {
 
   inputList.forEach((el) => {
     el.addEventListener('input', () => {
-      validateInput(formElem, el);
+      validateInput(formElem, el, settings);
       toggleButtonSubmit(inputList, submitButton, settings);
     });
   });
@@ -74,7 +74,7 @@ function enableValidation(settings) {
       evt.preventDefault;
     });
 
-    setHandlers(el);
+    setHandlers(el, settings);
   });
 }
 
