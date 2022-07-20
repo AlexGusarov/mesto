@@ -54,6 +54,8 @@ function closePopup () {
   }  
 };
 
+
+//закрыть окно по крестику или оверлею
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     //защита от двойного клика
@@ -71,7 +73,6 @@ function closeByEsc (evt) {
     closePopup();
 }
 }
-
 
 
 const openPopup = (typeOfPopup) => {
