@@ -167,11 +167,18 @@ addButton.addEventListener('click', handleAddBtn);
 
 const handleAddSubmit = (event) => {
   event.preventDefault();
-  const newCard = createCard (titleInput.value, linkInput.value);
-  cardsContainer.prepend(newCard); 
-  event.target.reset(); 
-  closePopup();
+
+  if(titleInput.value !== "" || linkInput.value !== "" ) {
+    const newCard = createCard (titleInput.value, linkInput.value);
+    cardsContainer.prepend(newCard); 
+    event.target.reset(); 
+    closePopup();
+  } else {
+    event.target.querySelector('.popup__submit').classList.add('button_inactive');
+    event.target.querySelector('.popup__submit').setAttribute('disabled', 'disabled');
+  }  
 }
+
 
 addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
 
