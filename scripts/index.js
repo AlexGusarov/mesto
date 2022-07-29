@@ -25,9 +25,19 @@ const initialCards = [
   }
 ];
 
+
+//объект настроек валидации
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input-text',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'popup__input-text_invalid',
+  errorClass: 'popup__input-error_active',
+}
+
+
 const cardsContainer = document.querySelector('.elements__list');
-const cardTemplate = document.querySelector('#card-template').content;
-const imagePopup = document.querySelector('.popup_type_image');
 const editPopup = document.querySelector('.popup_type_edit-profile');
 const addPopup = document.querySelector('.popup_type_add-button');
 const popupForm = document.querySelector('.popup__form');
@@ -37,12 +47,15 @@ const nameProfile = document.querySelector('.profile__heading');
 const jobProfile = document.querySelector('.profile__subheading');
 const addButton = document.querySelector('.profile__button-add');
 const editButton = document.querySelector('.profile__button-edit');
-const closeButtons = document.querySelectorAll('.popup__button-close');
 const titleInput = addPopup.querySelector('.popup__input-text_type_title');
 const linkInput = addPopup.querySelector('.popup__input-text_type_link');
-const imageOfImagePopup = imagePopup.querySelector('.popup__image');
-const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 const popups = document.querySelectorAll('.popup');
+export const imagePopup = document.querySelector('.popup_type_image');
+export const imageOfImagePopup = imagePopup.querySelector('.popup__image');
+export const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
+
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 
 function closePopup () {
@@ -82,58 +95,18 @@ const openPopup = (typeOfPopup) => {
 };
 
 
-const handleTrashBtn = (evt) => {
-  evt.target.closest('.element').remove();
-};
-
-
-const handleLikeBtn = (evt) => {
-    evt.target.classList.toggle('element__button-like_active');
-};
-
-
-const openFullImg = (evt) => {
-  openPopup(imagePopup);
-
-  const element = evt.target.closest('.element');
-  const title = element.querySelector('.element__title').textContent;
-  const link = evt.target.getAttribute('src');
-
-  imageOfImagePopup.setAttribute('src', link);
-  imageOfImagePopup.setAttribute('alt', title);
-  titleOfImagePopup.textContent = title;  
-};
-
-
-const createCard = (name, link) => {  
-  const cardElement = cardTemplate.querySelector('.element').cloneNode(true);
-  const imageCard = cardElement.querySelector('.element__image');
-
-  cardElement.querySelector('.element__title').textContent = name;
-  imageCard.src = link;
-  imageCard.alt = name;
-
-  imageCard.addEventListener('click', openFullImg);  
-
-  const trashButton = cardElement.querySelector('.element__button-trash');
-  trashButton.addEventListener('click', handleTrashBtn); 
-
-  const likeButton = cardElement.querySelector('.element__button-like');  
-  likeButton.addEventListener('click', handleLikeBtn);
-
-  return cardElement;  
-}  
-
 
 const renderInitialCards = () => {
-  initialCards.forEach(function (item) {
-      const card = createCard(item.name, item.link);
-      cardsContainer.append(card);
-    });    
+  initialCards.forEach((item) => {
+    const card = new Card(item, '.card-template');
+    const cardElement = card.generateCard();
+  
+    cardsContainer.append(cardElement);
+  }); 
 }
 
 
-renderInitialCards ();
+renderInitialCards();
 
 
 function handleEditBtn () {
@@ -169,8 +142,13 @@ const handleAddSubmit = (event) => {
   event.preventDefault();
 
   if(titleInput.value !== "" || linkInput.value !== "" ) {
-    const newCard = createCard (titleInput.value, linkInput.value);
-    cardsContainer.prepend(newCard); 
+    const addCardInput = {
+      name: titleInput.value,
+      link: linkInput.value
+    }
+    const newCard = new Card(addCardInput, '.card-template');
+    const newCardElement = newCard.generateCard();
+    cardsContainer.prepend(newCardElement); 
     event.target.reset(); 
     closePopup();
   } else {
@@ -182,6 +160,9 @@ const handleAddSubmit = (event) => {
 
 addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
 
+
+const newValidator = new FormValidator(settings, '.popup__form');
+newValidator.enableValidation();
 
 
 
