@@ -1,4 +1,4 @@
-import {imagePopup, imageOfImagePopup, titleOfImagePopup} from './index.js';
+import {imagePopup, closePopup, openFullImg} from './index.js';
 
 
 export default class Card {
@@ -20,36 +20,6 @@ _getTemplate() {
 }
 
 
-_handleOpenPopup() { 
-  imagePopup.classList.add('popup_opened');
-   
-  document.addEventListener('keydown', (evt) => {
-    this._closeByEsc(evt);
-
-  }); 
-}
-
-
-_handleClosePopup() {
-  const openedPopup = document.querySelector('.popup_opened');
-  if (openedPopup) {
-    openedPopup.classList.remove('popup_opened');
-
-    document.removeEventListener('keydown', (evt) => {
-      this._closeByEsc(evt);
-
-    }); 
-  }
-}
-
-
-_closeByEsc(evt) {
-  if (evt.key === 'Escape') {
-    this._handleClosePopup();
-  }
-}
-
-
 _handleTrashBtn (evt) {
   evt.target.closest('.element').remove();
 };
@@ -58,19 +28,6 @@ _handleTrashBtn (evt) {
 _handleLikeBtn (evt) {
   evt.target.classList.toggle('element__button-like_active');
 };
-
-
-_openFullImg (evt) {
-  this._handleOpenPopup();
-  
-  const element = evt.target.closest('.element');
-  const title = element.querySelector('.element__title').textContent;
-  const link = evt.target.getAttribute('src');
-  
-  imageOfImagePopup.setAttribute('src', link);
-  imageOfImagePopup.setAttribute('alt', title);
-  titleOfImagePopup.textContent = title;  
-  };
 
 
 _setEventListeners() {
@@ -88,11 +45,11 @@ _setEventListeners() {
   });
 
   imageCard.addEventListener('click', (evt) => {
-    this._openFullImg(evt);
+    openFullImg(evt);
   });
   
-  closeButton.addEventListener('click', () => {
-    this._handleClosePopup();
+  closeButton.addEventListener('click', (evt) => {
+    closePopup(evt.target.closest('.popup'));
   })
 }
 
