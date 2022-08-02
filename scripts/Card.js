@@ -34,8 +34,7 @@ _setEventListeners() {
   const trashButton = this._element.querySelector('.element__button-trash');
   const likeButton = this._element.querySelector('.element__button-like');
   const imageCard = this._element.querySelector('.element__image');
-  const closeButton = imagePopup.querySelector('.popup__button-close');
-  
+    
   trashButton.addEventListener('click', (evt) => {
     this._handleTrashBtn(evt);
   });
@@ -46,11 +45,7 @@ _setEventListeners() {
 
   imageCard.addEventListener('click', (evt) => {
     openFullImg(evt);
-  });
-  
-  closeButton.addEventListener('click', (evt) => {
-    closePopup(evt.target.closest('.popup'));
-  })
+  }); 
 }
 
 
