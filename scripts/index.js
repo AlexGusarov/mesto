@@ -37,6 +37,8 @@ const settings = {
   errorClass: 'popup__input-error_active',
 }
 
+import Popup from './Popup.js'
+import PopupWithImage from './PopupWithImage.js';
 import Section from './Section.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
@@ -56,61 +58,61 @@ const popups = document.querySelectorAll('.popup');
 const cardValidator = new FormValidator(settings, '.popup__form_card');
 const userValidator = new FormValidator(settings, '.popup__form_user');
 export const imagePopup = document.querySelector('.popup_type_image');
-const imageOfImagePopup = imagePopup.querySelector('.popup__image');
-const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
+export const imageOfImagePopup = imagePopup.querySelector('.popup__image');
+export const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 
 
-export function closePopup (popup) {
-    popup.classList.remove('popup_opened');
+export function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 
-    document.removeEventListener('keydown', closeByEsc); 
-  }  
+  document.removeEventListener('keydown', closeByEsc);
+}
 
 
 //закрыть окно по крестику или оверлею
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.matches('.popup_opened') || evt.target.matches('.popup__button-close')) {
-        closePopup(popup)
-    }   
+      closePopup(popup)
+    }
   })
 })
 
 
-function closeByEsc (evt) {
+function closeByEsc(evt) {
   if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup);
-}
+  }
 }
 
 
 const openPopup = (typeOfPopup) => {
-   typeOfPopup.classList.add('popup_opened');
+  typeOfPopup.classList.add('popup_opened');
 
   //заблокировать кнопку до события input
   cardValidator.disableButton();
-   
-   document.addEventListener('keydown', closeByEsc);
+
+  document.addEventListener('keydown', closeByEsc);
 };
 
 
-export const openFullImg = (evt) => {
-  openPopup(imagePopup);
-  
-  const element = evt.target.closest('.element');
-  const title = element.querySelector('.element__title').textContent;
-  const link = evt.target.getAttribute('src');
-  
-  imageOfImagePopup.setAttribute('src', link);
-  imageOfImagePopup.setAttribute('alt', title);
-  titleOfImagePopup.textContent = title;  
-  };
+// export const openFullImg = (evt) => {
+//   openPopup(imagePopup);
+
+//   const element = evt.target.closest('.element');
+//   const title = element.querySelector('.element__title').textContent;
+//   const link = evt.target.getAttribute('src');
+
+//   imageOfImagePopup.setAttribute('src', link);
+//   imageOfImagePopup.setAttribute('alt', title);
+//   titleOfImagePopup.textContent = title;
+// };
 
 
 
 
-function handleEditBtn () {
+function handleEditBtn() {
   openPopup(editPopup);
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
@@ -118,7 +120,7 @@ function handleEditBtn () {
 
 
 const handleEditSubmit = (event) => {
-  event.preventDefault();  
+  event.preventDefault();
   nameProfile.textContent = nameInput.value;
   jobProfile.textContent = jobInput.value;
   closePopup(event.target.closest('.popup'));
@@ -133,16 +135,16 @@ const handleAddBtn = () => {
 const handleAddSubmit = (event) => {
   event.preventDefault();
 
-    const addCardInput = {
-      name: titleInput.value,
-      link: linkInput.value
-    }
-    const newCard = new Card(addCardInput, '.card-template');
-    const newCardElement = newCard.generateCard();
+  const addCardInput = {
+    name: titleInput.value,
+    link: linkInput.value
+  }
+  const newCard = new Card(addCardInput, '.card-template');
+  const newCardElement = newCard.generateCard();
 
-    cardsContainer.prepend(newCardElement); 
-    event.target.reset(); 
-    closePopup(event.target.closest('.popup'));  
+  cardsContainer.prepend(newCardElement);
+  event.target.reset();
+  closePopup(event.target.closest('.popup'));
 }
 
 
@@ -166,5 +168,10 @@ const defaultCardList = new Section({
 }, cardsContainer);
 
 defaultCardList.renderItems();
+
+const userPopup = new Popup('.popup_type_edit-profile');
+userPopup.close();
+
+export const newImagePopup = new PopupWithImage('.popup_type_image');
 
 
