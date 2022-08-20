@@ -37,7 +37,7 @@ const settings = {
   errorClass: 'popup__input-error_active',
 }
 
-
+import Section from './Section.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 const cardsContainer = document.querySelector('.elements__list');
@@ -107,14 +107,7 @@ export const openFullImg = (evt) => {
   titleOfImagePopup.textContent = title;  
   };
 
-const renderInitialCards = () => {
-  initialCards.forEach((item) => {
-    const card = new Card(item, '.card-template');
-    const cardElement = card.generateCard();
-  
-    cardsContainer.append(cardElement);
-  }); 
-}
+
 
 
 function handleEditBtn () {
@@ -159,11 +152,19 @@ editPopup.querySelector('.popup__form').addEventListener('submit', handleEditSub
 addButton.addEventListener('click', handleAddBtn);
 
 
-renderInitialCards();
+
 cardValidator.enableValidation();
 userValidator.enableValidation();
 
+const defaultCardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '.card-template');
+    const cardElement = card.generateCard();
+    defaultCardList.addItem(cardElement);
+  }
+}, cardsContainer);
 
-
+defaultCardList.renderItems();
 
 
