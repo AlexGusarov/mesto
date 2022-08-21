@@ -148,6 +148,7 @@ const handleAddSubmit = (event) => {
 }
 
 
+
 addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
 editButton.addEventListener('click', handleEditBtn);
 editPopup.querySelector('.popup__form').addEventListener('submit', handleEditSubmit);
@@ -158,7 +159,7 @@ addButton.addEventListener('click', handleAddBtn);
 cardValidator.enableValidation();
 userValidator.enableValidation();
 
-const defaultCardList = new Section({
+const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = new Card(item, '.card-template');
@@ -167,11 +168,16 @@ const defaultCardList = new Section({
   }
 }, cardsContainer);
 
-defaultCardList.renderItems();
+cardList.renderItems();
 
 const userPopup = new Popup('.popup_type_edit-profile');
 userPopup.close();
 
 export const newImagePopup = new PopupWithImage('.popup_type_image');
 
+
+function createCard({ name, link }) {
+  const newCard = new Card({ name, link }, '.card-template');
+  return newCard.generateCard();
+}
 

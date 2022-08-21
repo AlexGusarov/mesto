@@ -1,23 +1,33 @@
 export default class Popup {
   constructor(selectorPopup) {
-    this._selectorPopup = document.querySelector(selectorPopup);
+    this._element = document.querySelector(selectorPopup);
   }
 
-  _handleEscClose() { }
+  _handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      this.close();
+    }
+  }
 
-  setEventListeners() { }
+  setEventListeners() {
+    this._element.addEventListener('mousedown', (evt) => {
+      if (evt.target.matches('.popup_opened') || evt.target.matches('.popup__button-close')) {
+        this.close();
+      }
+    })
+  }
 
   open() {
-    this._selectorPopup.classList.add('popup_opened');
+    this._element.classList.add('popup_opened');
 
     // cardValidator.disableButton();
 
-    // document.addEventListener('keydown', closeByEsc);
+    document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
   }
 
   close() {
-    this._selectorPopup.classList.remove('popup_opened');
+    this._element.classList.remove('popup_opened');
 
-    // document.removeEventListener('keydown', closeByEsc);
+    document.removeEventListener('keydown', (evt) => this._handleEscClose(evt));
   }
 }
