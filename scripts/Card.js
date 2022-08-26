@@ -1,9 +1,9 @@
-import { imagePopup, closePopup, newImagePopup } from './index.js';
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._templateSelector = templateSelector;
     this._image = data.link;
     this._title = data.name;
+    this._handleCardClick = handleCardClick;
   }
 
 
@@ -27,7 +27,6 @@ export default class Card {
     evt.target.classList.toggle('element__button-like_active');
   };
 
-
   _setEventListeners() {
     const trashButton = this._element.querySelector('.element__button-trash');
     const likeButton = this._element.querySelector('.element__button-like');
@@ -42,7 +41,7 @@ export default class Card {
     });
 
     imageCard.addEventListener('click', (evt) => {
-      newImagePopup.open(evt);
+      this._handleCardClick(evt);
     });
   }
 

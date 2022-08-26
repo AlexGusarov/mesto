@@ -1,183 +1,81 @@
-// массив начальных карточек
-const initialCards = [
-  {
-    name: 'Куршская коса',
-    link: 'https://images.unsplash.com/photo-1552603977-d552dc4022d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1633&q=80'
-  },
-  {
-    name: 'Валдай',
-    link: 'https://images.unsplash.com/photo-1617259664773-dc3a1721cebd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmFsZGF5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Карелия',
-    link: 'https://images.unsplash.com/photo-1573156667788-3b0a869a97b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGthcmVsaWF8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: 'Урал',
-    link: 'https://images.unsplash.com/photo-1542091607-0545b109d5e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://images.unsplash.com/photo-1548146077-23ad537c6ef9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'
-  },
-  {
-    name: 'Чебоксары',
-    link: 'https://images.unsplash.com/photo-1554319554-bb07f7394b97?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80'
-  }
-];
-
-
-//объект настроек валидации
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input-text',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'button_inactive',
-  inputErrorClass: 'popup__input-text_invalid',
-  errorClass: 'popup__input-error_active',
-}
-
-import Popup from './Popup.js'
-import PopupWithImage from './PopupWithImage.js';
 import Section from './Section.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-const cardsContainer = document.querySelector('.elements__list');
-const editPopup = document.querySelector('.popup_type_edit-profile');
-const addPopup = document.querySelector('.popup_type_add-button');
-const popupForm = document.querySelector('.popup__form');
-const nameInput = popupForm.querySelector('.popup__input-text_type_name');
-const jobInput = popupForm.querySelector('.popup__input-text_type_job');
-const nameProfile = document.querySelector('.profile__heading');
-const jobProfile = document.querySelector('.profile__subheading');
-const addButton = document.querySelector('.profile__button-add');
-const editButton = document.querySelector('.profile__button-edit');
-const titleInput = addPopup.querySelector('.popup__input-text_type_title');
-const linkInput = addPopup.querySelector('.popup__input-text_type_link');
-const popups = document.querySelectorAll('.popup');
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
+import {
+  initialCards,
+  settings,
+  cardsContainer,
+  addButton,
+  editButton
+} from './constants.js'
+
+
+//валидация полей
 const cardValidator = new FormValidator(settings, '.popup__form_card');
 const userValidator = new FormValidator(settings, '.popup__form_user');
-export const imagePopup = document.querySelector('.popup_type_image');
-export const imageOfImagePopup = imagePopup.querySelector('.popup__image');
-export const titleOfImagePopup = imagePopup.querySelector('.popup__title-image');
 
 
-export function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-
-  document.removeEventListener('keydown', closeByEsc);
+function createCard({ name, link }) {
+  const newCard = new Card({ name, link }, '.card-template', (evt) => {
+    newImagePopup.open(evt);
+  });
+  return newCard.generateCard();
 }
-
-
-//закрыть окно по крестику или оверлею
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.matches('.popup_opened') || evt.target.matches('.popup__button-close')) {
-      closePopup(popup)
-    }
-  })
-})
-
-
-function closeByEsc(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup);
-  }
-}
-
-
-const openPopup = (typeOfPopup) => {
-  typeOfPopup.classList.add('popup_opened');
-
-  //заблокировать кнопку до события input
-  cardValidator.disableButton();
-
-  document.addEventListener('keydown', closeByEsc);
-};
-
-
-// export const openFullImg = (evt) => {
-//   openPopup(imagePopup);
-
-//   const element = evt.target.closest('.element');
-//   const title = element.querySelector('.element__title').textContent;
-//   const link = evt.target.getAttribute('src');
-
-//   imageOfImagePopup.setAttribute('src', link);
-//   imageOfImagePopup.setAttribute('alt', title);
-//   titleOfImagePopup.textContent = title;
-// };
-
-
-
-
-function handleEditBtn() {
-  openPopup(editPopup);
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-}
-
-
-const handleEditSubmit = (event) => {
-  event.preventDefault();
-  nameProfile.textContent = nameInput.value;
-  jobProfile.textContent = jobInput.value;
-  closePopup(event.target.closest('.popup'));
-}
-
-
-const handleAddBtn = () => {
-  openPopup(addPopup);
-}
-
-
-const handleAddSubmit = (event) => {
-  event.preventDefault();
-
-  const addCardInput = {
-    name: titleInput.value,
-    link: linkInput.value
-  }
-  const newCard = new Card(addCardInput, '.card-template');
-  const newCardElement = newCard.generateCard();
-
-  cardsContainer.prepend(newCardElement);
-  event.target.reset();
-  closePopup(event.target.closest('.popup'));
-}
-
-
-
-addPopup.querySelector('.popup__form').addEventListener('submit', handleAddSubmit);
-editButton.addEventListener('click', handleEditBtn);
-editPopup.querySelector('.popup__form').addEventListener('submit', handleEditSubmit);
-addButton.addEventListener('click', handleAddBtn);
-
-
-
-cardValidator.enableValidation();
-userValidator.enableValidation();
 
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '.card-template');
-    const cardElement = card.generateCard();
-    defaultCardList.addItem(cardElement);
+    const cardElement = createCard(item);
+    cardList.addItem(cardElement);
   }
 }, cardsContainer);
 
+
+const newImagePopup = new PopupWithImage('.popup_type_image');
+
+
+const newCardPopup = new PopupWithForm({
+  selectorPopup: '.popup_type_add-button',
+  handleFormSubmit: ({ name, link }) => {
+    const CardElement = createCard({ name, link });
+    cardList.addItem(CardElement);
+  },
+  disableButton: () => { cardValidator.disableButton() }
+});
+
+
+const newUserPopup = new PopupWithForm({
+  selectorPopup: '.popup_type_edit-profile',
+  handleFormSubmit: () => {
+    newUserInfo.setUserInfo();
+  }
+})
+
+
+const newUserInfo = new UserInfo(
+  '.profile__heading',
+  '.profile__subheading',
+  '.popup__input-text_type_name',
+  '.popup__input-text_type_job');
+
+
 cardList.renderItems();
 
-const userPopup = new Popup('.popup_type_edit-profile');
-userPopup.close();
+cardValidator.enableValidation();
+userValidator.enableValidation();
 
-export const newImagePopup = new PopupWithImage('.popup_type_image');
+newImagePopup.setEventListeners();
+newCardPopup.setEventListeners();
+newUserPopup.setEventListeners();
 
+editButton.addEventListener('click', () => {
+  newUserPopup.open();
+  newUserInfo.getUserInfo();
+});
 
-function createCard({ name, link }) {
-  const newCard = new Card({ name, link }, '.card-template');
-  return newCard.generateCard();
-}
-
+addButton.addEventListener('click', () => {
+  newCardPopup.open();
+})
