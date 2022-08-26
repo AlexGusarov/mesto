@@ -51,7 +51,8 @@ const newUserPopup = new PopupWithForm({
   selectorPopup: '.popup_type_edit-profile',
   handleFormSubmit: () => {
     newUserInfo.setUserInfo();
-  }
+  },
+  disableButton: () => { cardValidator.disableButton() }
 })
 
 
