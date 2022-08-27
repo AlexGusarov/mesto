@@ -1,16 +1,17 @@
-import Section from './Section.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import './index.css'
+import Section from '../scripts/components/Section.js';
+import Card from '../scripts/components/Card.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import UserInfo from '../scripts/components/UserInfo.js';
 import {
   initialCards,
   settings,
   cardsContainer,
   addButton,
   editButton
-} from './constants.js'
+} from '../scripts/utils/constants.js'
 
 
 //валидация полей
