@@ -1,6 +1,7 @@
 export default class Popup {
   constructor(selectorPopup) {
     this._element = document.querySelector(selectorPopup);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   _handleEscClose(evt) {
@@ -10,7 +11,6 @@ export default class Popup {
   }
 
   setEventListeners() {
-    console.log()
     this._element.addEventListener('mousedown', (evt) => {
       if (evt.target.matches('.popup_opened') || evt.target.matches('.popup__button-close')) {
         this.close();
@@ -23,12 +23,12 @@ export default class Popup {
 
     // cardValidator.disableButton();
 
-    document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._element.classList.remove('popup_opened');
 
-    document.removeEventListener('keydown', (evt) => this._handleEscClose(evt));
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 }

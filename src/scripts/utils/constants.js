@@ -39,5 +39,5 @@ export const settings = {
 export const cardsContainer = document.querySelector('.elements__list');
 export const addButton = document.querySelector('.profile__button-add');
 export const editButton = document.querySelector('.profile__button-edit');
-export const imageOfImagePopup = document.querySelector('.popup__image');
-export const titleOfImagePopup = document.querySelector('.popup__title-image');
+export const nameInput = document.querySelector('.popup__input-text_type_name');
+export const jobInput = document.querySelector('.popup__input-text_type_job');

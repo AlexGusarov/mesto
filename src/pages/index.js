@@ -10,7 +10,9 @@ import {
   settings,
   cardsContainer,
   addButton,
-  editButton
+  editButton,
+  nameInput,
+  jobInput
 } from '../scripts/utils/constants.js'
 
 
@@ -20,8 +22,12 @@ const userValidator = new FormValidator(settings, '.popup__form_user');
 
 
 function createCard({ name, link }) {
-  const newCard = new Card({ name, link }, '.card-template', (evt) => {
-    newImagePopup.open(evt);
+  const newCard = new Card({
+    data: { name, link },
+    templateSelector: '.card-template',
+    handleCardClick: (data) => {
+      newImagePopup.open(data)
+    }
   });
   return newCard.generateCard();
 }
@@ -43,25 +49,22 @@ const newCardPopup = new PopupWithForm({
   handleFormSubmit: ({ name, link }) => {
     const CardElement = createCard({ name, link });
     cardList.addItem(CardElement);
-  },
-  disableButton: () => { cardValidator.disableButton() }
+  }
 });
 
 
 const newUserPopup = new PopupWithForm({
   selectorPopup: '.popup_type_edit-profile',
-  handleFormSubmit: () => {
-    newUserInfo.setUserInfo();
-  },
-  disableButton: () => { cardValidator.disableButton() }
-})
+  handleFormSubmit: (data) => {
+    newUserInfo.setUserInfo(data);
+  }
+});
 
 
-const newUserInfo = new UserInfo(
-  '.profile__heading',
-  '.profile__subheading',
-  '.popup__input-text_type_name',
-  '.popup__input-text_type_job');
+const newUserInfo = new UserInfo({
+  selectorName: '.profile__heading',
+  selectorJob: '.profile__subheading'
+});
 
 
 cardList.renderItems();
@@ -74,10 +77,19 @@ newCardPopup.setEventListeners();
 newUserPopup.setEventListeners();
 
 editButton.addEventListener('click', () => {
+  const userData = newUserInfo.getUserInfo();
+  nameInput.value = userData.name;
+  jobInput.value = userData.job;
+
+  cardValidator.disableButton();
+
   newUserPopup.open();
-  newUserInfo.getUserInfo();
 });
 
+
 addButton.addEventListener('click', () => {
+  cardValidator.disableButton();
+
   newCardPopup.open();
-})
+});
+
