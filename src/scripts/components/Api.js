@@ -1,9 +1,16 @@
 export default class Api {
   constructor ({baseUrl, token}) {
     this._baseUrl = baseUrl;
-    this._token = token;
+    this._token = token;    
   }
 
+  _handleResponse(res) {  
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.reject(`Ошибка: ${res.status}`);
+  }
 
   getInitialCards () {
     return fetch (`${this._baseUrl}/cards`, {
@@ -12,12 +19,8 @@ export default class Api {
     }
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })        
+      return this._handleResponse(res);
+    });        
   }
 
 
@@ -28,11 +31,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return this._handleResponse(res);;
     })
   }
 
@@ -49,6 +48,10 @@ export default class Api {
           about: data.about
         })
       })
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
+            
     }
   
 
@@ -64,6 +67,9 @@ export default class Api {
           link: link
         })
       })
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
     }
 
 
@@ -74,6 +80,9 @@ export default class Api {
           authorization: this._token            
         }    
       })
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
     }
 
     
@@ -84,6 +93,9 @@ export default class Api {
           authorization: this._token            
         }    
       })
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
     } 
 
 
@@ -93,10 +105,13 @@ export default class Api {
       headers: { 
           authorization: this._token            
         }    
-      })
+      })  
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
     }
 
-  editAvater ({link}) {
+  editAvatar ({link}) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: { 
@@ -107,6 +122,9 @@ export default class Api {
           avatar: link
         })
       })
+      .then(res => {
+        return this._handleResponse(res);
+      }); 
     }
   
 
