@@ -19,9 +19,7 @@ export default class Popup {
   }
 
   open() {
-    this._element.classList.add('popup_opened');
-
-    // cardValidator.disableButton();
+    this._element.classList.add('popup_opened');   
 
     document.addEventListener('keydown', this._handleEscClose);
   }
