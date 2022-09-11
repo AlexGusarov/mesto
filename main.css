@@ -142,10 +142,10 @@
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/popup/__button-close/popup__button-close.css ***!
   \*********************************************************************************************************************************************************************************/
 .popup__button-close{background-color:transparent;background-image:url(039f1f5203f653b4bacd.svg);background-size:contain;border:none;height:32px;position:absolute;right:-40px;top:-32px;width:32px}.popup__button-close:hover{opacity:.6}@media screen and (max-width:560px){.popup__button-close{height:20px;right:0;top:-36px;width:20px}}
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/popup/__container/_type/popup__container_type_image.css ***!
-  \********************************************************************************************************************************************************************************************/
-.popup__container_type_image{max-height:75vh;max-width:75vw;position:relative}
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/popup/__container-image/popup__container-image.css ***!
+  \***************************************************************************************************************************************************************************************/
+.popup__container-image{max-height:75vh;max-width:75vw;position:relative}
 /*!*******************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js!./src/blocks/popup/__image/popup__image.css ***!
   \*******************************************************************************************************************************************************************/
