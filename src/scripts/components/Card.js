@@ -12,6 +12,7 @@ export default class Card {
     this._handleLikeBtn = handleLikeBtn;    
   }
 
+
   isOwner() {
     if (this._owner === this._userId) {
       return true;
@@ -20,6 +21,7 @@ export default class Card {
     }
     }
 
+    
   isLiked() {
     return this._likes.map(a => a._id).includes(this._userId);
   }
@@ -31,6 +33,7 @@ export default class Card {
     this._counter.textContent = this._likes.length;      
   }
 
+
   toggleLike() {
       if (this.isLiked()) {
         this._likeButton.classList.add('element__button-like_active');       
@@ -38,9 +41,6 @@ export default class Card {
     }      
     }
 
-  removeMarkLike() {
-    this._likeButton.classList.remove('element__button-like_active')
-  }
 
   _getTemplate() {
     const cardElement = document
@@ -52,9 +52,6 @@ export default class Card {
     return cardElement;
   }
 
-  // _handleLikeBtn(evt) {
-  //   evt.target.classList.toggle('element__button-like_active');
-  // }
 
   _setEventListeners() {
     this._trashButton = this._element.querySelector('.element__button-trash');
@@ -96,13 +93,7 @@ export default class Card {
  
     this._counter.textContent = this._likes.length;
     this.toggleLike();
-
-    // console.log(`номер карты ${this._cardId}`)
-    // console.log(`Владелец карточки: ${this._owner}`);
-    // console.log(`Виден ли пользователь в карте - ${this._userId}`);
-  
-    // console.log(this._likes.length);
-
+ 
     return this._element;    
   }
 }
