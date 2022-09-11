@@ -21,14 +21,13 @@ export default class Card {
     }
     }
 
-    
+
   isLiked() {
     return this._likes.map(a => a._id).includes(this._userId);
   }
     
     
-  countLikes(likes) {
-    this._counter = this._element.querySelector('.element__counter');
+  countLikes(likes) {   
     this._likes = likes;
     this._counter.textContent = this._likes.length;      
   }
@@ -84,11 +83,10 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
 
-    this._counter = this._element.querySelector('.element__counter');
-    this._elementImage = this._element.querySelector('.element__image');    
+    this._counter = this._element.querySelector('.element__counter');     
 
-    this._elementImage.src = this._image;
-    this._elementImage.alt = this._title;
+    this._imageCard.src = this._image;
+    this._imageCard.alt = this._title;
     this._element.querySelector('.element__title').textContent = this._title;
  
     this._counter.textContent = this._likes.length;

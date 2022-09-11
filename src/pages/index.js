@@ -24,13 +24,11 @@ const cardValidator = new FormValidator(settings, '.popup__form_card');
 const userValidator = new FormValidator(settings, '.popup__form_user');
 const avatarValidator = new FormValidator(settings,'.popup__form_avatar');
 
-//переменная для ID юзера - нужна для определения своя-чужая карточка
-let userId = null;
 
 function createCard(dataCard) {
   const newCard = new Card({
     data: dataCard,
-    idOfUser: userId,
+    idOfUser: newUserInfo.getUserInfo()._id,
     templateSelector: '.card-template',
     handleCardClick: (data) => {
       newImagePopup.open(data)
@@ -45,12 +43,18 @@ function createCard(dataCard) {
         newCard.countLikes(res.likes);
         newCard.toggleLike();        
        })
+       .catch((err) => {
+        console.log(`Ошибка с отправкой лайка ${err}`)
+       })
       } else {
         api.deleteLike(id)
         .then ((res) => {
         newCard.countLikes(res.likes);
         newCard.toggleLike(); 
-        })        
+        })
+        .catch((err) => {
+          console.log(`Ошибка с удалением лайка ${err}`)
+         })        
       }
     }
   });  
@@ -87,7 +91,7 @@ const newCardPopup = new PopupWithForm({
     cardList.addItem(card)
   })
   .catch((err) => {
-    console.log(err)
+    console.log(`Ошибка с созданием новой карточки ${err}`)
   })
   }
 });
@@ -96,17 +100,20 @@ const newCardPopup = new PopupWithForm({
 const newUserPopup = new PopupWithForm({
   selectorPopup: '.popup_type_edit-profile',
   handleFormSubmit: ({name, about}) => {
-    newUserPopup.showSaving(true);
+    newUserPopup.showSaving(true);  
     api.editProfile({name, about})  
     .then((res) => {
       newUserInfo.setUserInfo(res);
     })
-    .catch ((err) => {
-      console.log(`Проблема с обновлением профиля ${err}`)
+    .then (() => {      
+      newUserPopup.close();
     })
-    .finally(() => {
+    .catch((err) => {
+      console.log(`Ошибка с редактированием данных пользователя ${err}`)
+    })
+    .finally (() => {
       newUserPopup.showSaving(false);
-    })
+    })      
   }
 });
 
@@ -125,6 +132,9 @@ const newAvatar = new PopupWithForm({
     api.editAvatar({link})   
     .then((res) => {
       newUserInfo.setUserInfo(res);
+    })
+    .then(() => {
+      newAvatar.close();
     }) 
     .catch((err) => {
       console.log(`Проблемы загрузки аватара ${err}`)
@@ -144,7 +154,10 @@ const popupConfirm = new PopupConfirm({
       card.remove();
       card = null;
       popupConfirm.close();
-    });   
+    })
+    .catch((err) => {
+      console.log(`Ошибка с удалением карточки ${err}`)
+     })   
   }  
 })
 
@@ -159,8 +172,10 @@ newUserPopup.setEventListeners();
 popupConfirm.setEventListeners();
 newAvatar.setEventListeners();
 
+
 editButton.addEventListener('click', () => {
   const userData = newUserInfo.getUserInfo();
+
   nameInput.value = userData.name;
   jobInput.value = userData.about;
 
@@ -169,11 +184,13 @@ editButton.addEventListener('click', () => {
   newUserPopup.open();
 });
 
+
 addButton.addEventListener('click', () => {
   cardValidator.disableButton();
 
   newCardPopup.open();
 });
+
 
 editAvatar.addEventListener('click', () => {
   cardValidator.disableButton();
@@ -189,9 +206,7 @@ Promise.all([
   .then(([startCards, dataUser]) => {
  //установка данных о пользователе
  newUserInfo.setUserInfo(dataUser);
- userId = dataUser._id;
  
-
 //рендер начальных карточек
 startCards.reverse();
 cardList.renderItems(startCards);
