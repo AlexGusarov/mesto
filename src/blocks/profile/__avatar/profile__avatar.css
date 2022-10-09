@@ -4,6 +4,8 @@
   border-radius: 50%;
   object-fit: cover;
   background-position: center center;
+  position: relative;
+  z-index: 0;
 }
 
 @media screen and (max-width: 940px) {
